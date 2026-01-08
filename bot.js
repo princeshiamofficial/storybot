@@ -226,3 +226,14 @@ bot.launch().then(() => {
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
+
+// Render Health Check Server
+// Render requires web services to bind to a port within 60 seconds.
+const http = require('http');
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Bot is running!');
+}).listen(PORT, () => {
+    console.log(`Health check server running on port ${PORT}`);
+});
